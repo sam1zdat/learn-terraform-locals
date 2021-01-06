@@ -11,6 +11,10 @@ provider "aws" {
   region  = var.aws_region
 }
 
+locals {
+  name_suffix = "${var.resource_tags["project"]}-${var.resource_tags["environment"]}"
+  }
+
 data "aws_availability_zones" "available" {
   state = "available"
 }
@@ -19,7 +23,8 @@ module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
   version = "2.44.0"
 
-  name = "vpc-${var.resource_tags["project"]}-${var.resource_tags["environment"]}"
+  # name = "vpc-${var.resource_tags["project"]}-${var.resource_tags["environment"]}"
+  name = "vpc-${locals.name_suffix}"
   cidr = var.vpc_cidr_block
 
   azs             = data.aws_availability_zones.available.names
