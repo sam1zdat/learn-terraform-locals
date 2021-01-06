@@ -24,7 +24,7 @@ module "vpc" {
   version = "2.44.0"
 
   # name = "vpc-${var.resource_tags["project"]}-${var.resource_tags["environment"]}"
-  name = "vpc-${locals.name_suffix}"
+  name = "vpc-${local.name_suffix}"
   cidr = var.vpc_cidr_block
 
   azs             = data.aws_availability_zones.available.names
